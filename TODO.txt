@@ -1,0 +1,13 @@
+
+1) static_assert is obsolete here (because of c++11)
+2) system_timer_event could be reaplced with c++11 timer
+3) in log_std prhaps it's more correct to use std::cout 
+   (however, I still use sprintf here, so I'm not sure)
+4) add log_mpi
+5) add standalone version to logs (to be used with AMGX, for example)
+6) think about adding log parameter to functions, not just classes
+   (for example, init_cuda).
+7) timers are non non-movable because cuda_time doesnot have any
+   'uninited' state (it creates timer right in default constructor).
+   Not sure if it is a problem, because I usually don't move or copy
+   timers. But perhaps there will arise reason to do it at some point.

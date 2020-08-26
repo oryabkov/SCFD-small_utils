@@ -1,0 +1,29 @@
+
+	samples_n_protos/small_utils
+
+	Файлы, за которые данный тестовый код "ответственен":
+utils/cuda_safe_call.h
+utils/InitCUDA.h
+utils/cuda_ownutils.h
+utils/device_tag.h
+utils/static_assert.h
+utils/Log.h 
+utils/t_vals_table_tml.h 
+utils/constant_data.h 
+utils/t_timer_event.h 
+utils/main_try_catch_macro.h 
+utils/touch_file.h 
+
+Остальные файлы содержат тесты/примеры или являются "внешними" (как t_vec_tml.h, он относится к samples_n_protos/vecs_and_mats_types)
+
+	Общее описание
+
+	TODO
+
+	Описание классов:
+
+	TODO
+
+
+
+
