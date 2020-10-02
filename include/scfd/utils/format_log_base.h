@@ -22,7 +22,8 @@ namespace scfd
 namespace utils
 {
 
-class format_log_base
+template<class LogBasic>
+class format_log_base : public LogBasic
 {
     char    buf[200];
 public:
@@ -30,7 +31,8 @@ public:
     enum t_msg_type { INFO, INFO_ALL, WARNING, ERROR };
 
     //lesser log level corresponds to more important messages
-    virtual void msg(const std::string &s, t_msg_type mt = INFO, int _log_lev = 1) = 0;
+    //virtual void msg(const std::string &s, t_msg_type mt = INFO, int _log_lev = 1) = 0;
+    using LogBasic::msg;
     void info(const std::string &s, int _log_lev = 1)
     {
         msg(s, INFO, _log_lev);
@@ -129,7 +131,8 @@ public:
 
     //set_verbosity sets maximum level of messages to log
     //NOTE log_lev doesnot affects errors
-    virtual void set_verbosity(int _log_lev = 1) = 0;
+    //virtual void set_verbosity(int _log_lev = 1) = 0;
+    using LogBasic::set_verbosity;
 };
 
 }
