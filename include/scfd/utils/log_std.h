@@ -29,7 +29,7 @@ namespace scfd
 namespace utils
 {
 
-class log_std : public log
+class log_std : public log_formatted_base<log_std>
 {
     int     log_lev;
 public:

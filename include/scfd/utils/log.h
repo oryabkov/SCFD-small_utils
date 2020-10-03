@@ -22,37 +22,7 @@
 #include <stdexcept>
 #include <cstdarg>
 #include <cstdio>
-#include "format_log_base.h"
+#include "log_std.h"
 
-namespace scfd
-{
-namespace utils
-{
-
-class log_std : public log
-{
-    int     log_lev;
-public:
-    log_std() : log_lev(1) {}
-
-    virtual void msg(const std::string &s, t_msg_type mt = INFO, int _log_lev = 1)
-    {
-        if ((mt != ERROR)&&(_log_lev > log_lev)) return;
-        //TODO
-        if ((mt == INFO)||(mt == INFO_ALL))
-            printf("INFO:    %s\n", s.c_str());
-        else if (mt == WARNING)
-            printf("WARNING: %s\n", s.c_str());
-        else if (mt == ERROR)
-            printf("ERROR:   %s\n", s.c_str());
-        else 
-            throw std::logic_error("log_std::log: wrong t_msg_type argument");
-    }
-    virtual void set_verbosity(int _log_lev = 1) { log_lev = _log_lev; }
-};
-
-}
-
-}
 
 #endif
