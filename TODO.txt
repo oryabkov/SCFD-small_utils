@@ -11,3 +11,4 @@
    'uninited' state (it creates timer right in default constructor).
    Not sure if it is a problem, because I usually don't move or copy
    timers. But perhaps there will arise reason to do it at some point.
+8) convert tests to gtest version and add cmake
