@@ -22,6 +22,15 @@ namespace scfd
 namespace utils
 {
 
+/**
+* LogBasic concept:
+* void msg(const std::string &s, t_msg_type mt = INFO, int _log_lev = 1);
+* lesser log level corresponds to more important messages
+* void set_verbosity(int _log_lev = 1);
+* set_verbosity sets maximum level of messages to log
+* NOTE log_lev doesnot affects errors
+*/ 
+
 template<class LogBasic>
 class log_formatted_base
 {
@@ -30,8 +39,6 @@ public:
     //INFO_ALL refers to multi-process applications (like MPI) and means message, that must be said distintly by each process (like, 'i'm 1st; i'm second etc')
     enum t_msg_type { INFO, INFO_ALL, WARNING, ERROR };
 
-    //lesser log level corresponds to more important messages
-    //virtual void msg(const std::string &s, t_msg_type mt = INFO, int _log_lev = 1) = 0;
     void info(const std::string &s, int _log_lev = 1)
     {
         static_cast<LogBasic*>(this)->msg(s, INFO, _log_lev);
@@ -127,10 +134,6 @@ public:
         LOG__FORMATTED_OUT__(error, 1)
     }
     #undef LOG__FORMATTED_OUT__ 
-
-    //set_verbosity sets maximum level of messages to log
-    //NOTE log_lev doesnot affects errors
-    //virtual void set_verbosity(int _log_lev = 1) = 0;
 };
 
 }
