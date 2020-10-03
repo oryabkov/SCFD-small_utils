@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with SCFD.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef __SCFD_UTILS_FORMAT_LOG_BASE_H__
-#define __SCFD_UTILS_FORMAT_LOG_BASE_H__
+#ifndef __SCFD_UTILS_LOG_FORMATTED_BASE_H__
+#define __SCFD_UTILS_LOG_FORMATTED_BASE_H__
 
 namespace scfd
 {
@@ -23,7 +23,7 @@ namespace utils
 {
 
 template<class LogBasic>
-class format_log_base : public LogBasic
+class log_formatted_base : public LogBasic
 {
     char    buf[200];
 public:
