@@ -23,7 +23,7 @@ namespace utils
 {
 
 template<class LogBasic>
-class log_formatted_base : public LogBasic
+class log_formatted_base
 {
     char    buf[200];
 public:
@@ -32,22 +32,21 @@ public:
 
     //lesser log level corresponds to more important messages
     //virtual void msg(const std::string &s, t_msg_type mt = INFO, int _log_lev = 1) = 0;
-    using LogBasic::msg;
     void info(const std::string &s, int _log_lev = 1)
     {
-        msg(s, INFO, _log_lev);
+        static_cast<LogBasic*>(this)->msg(s, INFO, _log_lev);
     }
     void info_all(const std::string &s, int _log_lev = 1)
     {
-        msg(s, INFO_ALL, _log_lev);
+        static_cast<LogBasic*>(this)->msg(s, INFO_ALL, _log_lev);
     }
     void warning(const std::string &s, int _log_lev = 1)
     {
-        msg(s, WARNING, _log_lev);
+        static_cast<LogBasic*>(this)->msg(s, WARNING, _log_lev);
     }
     void error(const std::string &s, int _log_lev = 1)
     {
-        msg(s, ERROR, _log_lev);
+        static_cast<LogBasic*>(this)->msg(s, ERROR, _log_lev);
     }   
     
 
@@ -132,7 +131,6 @@ public:
     //set_verbosity sets maximum level of messages to log
     //NOTE log_lev doesnot affects errors
     //virtual void set_verbosity(int _log_lev = 1) = 0;
-    using LogBasic::set_verbosity;
 };
 
 }
