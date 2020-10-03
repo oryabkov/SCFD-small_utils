@@ -14,15 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with SCFD.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef __SCFD_UTILS_LOG_H__
-#define __SCFD_UTILS_LOG_H__
+#ifndef __SCFD_UTILS_LOG_STD_H__
+#define __SCFD_UTILS_LOG_STD_H__
 
 #include <string>
 #include <exception>
 #include <stdexcept>
 #include <cstdarg>
 #include <cstdio>
-#include "format_log_base.h"
+#include "log_formatted_base.h"
 
 namespace scfd
 {
