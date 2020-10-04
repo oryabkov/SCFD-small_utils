@@ -24,7 +24,8 @@ namespace utils
 
 /**
 * LogBasic concept:
-* void msg(const std::string &s, t_msg_type mt = INFO, int _log_lev = 1);
+* class enum log_msg_type that contains at least INFO,INFO_ALL,WARNING,ERROR
+* void msg(const std::string &s, log_msg_type mt = log_msg_type::INFO, int _log_lev = 1);
 * lesser log level corresponds to more important messages
 * void set_verbosity(int _log_lev = 1);
 * set_verbosity sets maximum level of messages to log
@@ -32,28 +33,29 @@ namespace utils
 */ 
 
 template<class LogBasic>
-class log_formatted_base
+class log_formatted : public LogBasic
 {
-    char    buf[200];
 public:
-    //INFO_ALL refers to multi-process applications (like MPI) and means message, that must be said distintly by each process (like, 'i'm 1st; i'm second etc')
-    enum t_msg_type { INFO, INFO_ALL, WARNING, ERROR };
+    using typename LogBasic::log_msg_type;
+    using LogBasic::msg;
+    using LogBasic::set_verbosity;
 
+public:
     void info(const std::string &s, int _log_lev = 1)
     {
-        static_cast<LogBasic*>(this)->msg(s, INFO, _log_lev);
+        msg(s, log_msg_type::INFO, _log_lev);
     }
     void info_all(const std::string &s, int _log_lev = 1)
     {
-        static_cast<LogBasic*>(this)->msg(s, INFO_ALL, _log_lev);
+        msg(s, log_msg_type::INFO_ALL, _log_lev);
     }
     void warning(const std::string &s, int _log_lev = 1)
     {
-        static_cast<LogBasic*>(this)->msg(s, WARNING, _log_lev);
+        msg(s, log_msg_type::WARNING, _log_lev);
     }
     void error(const std::string &s, int _log_lev = 1)
     {
-        static_cast<LogBasic*>(this)->msg(s, ERROR, _log_lev);
+        msg(s, log_msg_type::ERROR, _log_lev);
     }   
     
 
@@ -133,7 +135,12 @@ public:
     {
         LOG__FORMATTED_OUT__(error, 1)
     }
-    #undef LOG__FORMATTED_OUT__ 
+    #undef LOG__FORMATTED_OUT__
+
+private:
+    char    buf[200];
+
+
 };
 
 }
