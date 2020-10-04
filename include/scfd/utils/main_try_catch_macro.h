@@ -22,7 +22,7 @@
 #include "log.h"
 
 #define USE_MAIN_TRY_CATCH(log_obj)                                       \
-    scfd::utils::log      *MAIN_TRY_CATCH_LOG_OBJ_POINTER = &log_obj;     \
+    auto                  *MAIN_TRY_CATCH_LOG_OBJ_POINTER = &log_obj;     \
     std::string           MAIN_TRY_CATCH_CURRENT_BLOCK_NAME;
 
 #define MAIN_TRY(block_name) try {                                  \
