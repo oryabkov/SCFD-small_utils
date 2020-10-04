@@ -19,6 +19,12 @@
 
 #include <string>
 
+/**
+* Class needed, if we want to wrap someone's other LogBasic in our log_formatted<>
+* and need to expose ability to pass their own LogBasic instance through set_log-like 
+* method or constructor.
+*/
+
 namespace scfd
 {
 namespace utils
