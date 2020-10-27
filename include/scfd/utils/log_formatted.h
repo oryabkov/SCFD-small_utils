@@ -33,7 +33,7 @@ namespace utils
 */ 
 
 template<class LogBasic>
-class log_formatted : public LogBasic
+class log_cformatted : public LogBasic
 {
 public:
     using typename LogBasic::log_msg_type;

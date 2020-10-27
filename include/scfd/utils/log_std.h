@@ -23,7 +23,7 @@
 #include <cstdarg>
 #include <cstdio>
 #include "log_msg_type.h"
-#include "log_formatted.h"
+#include "log_cformatted.h"
 
 namespace scfd
 {
@@ -57,7 +57,7 @@ private:
     int     log_lev;
 };
 
-using log_std = log_formatted<log_std_basic>;
+using log_std = log_cformatted<log_std_basic>;
 
 }
 

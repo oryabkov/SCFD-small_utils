@@ -20,7 +20,7 @@
 #include <string>
 
 /**
-* Class needed, if we want to wrap someone's other LogBasic in our log_formatted<>
+* Class needed, if we want to wrap someone's other LogBasic in our log_cformatted<>
 * and need to expose ability to pass their own LogBasic instance through set_log-like 
 * method or constructor.
 */
@@ -30,7 +30,7 @@ namespace scfd
 namespace utils
 {
 
-/// see log_formatted for LogBasic concept
+/// see log_cformatted for LogBasic concept
 template<class LogBasic>
 class log_basic_wrap
 {
