@@ -11,3 +11,5 @@ cuda_test.bin: cuda_test.cu
 	nvcc -std=c++11 -I$(SCFD_INCLUDE) cuda_test.cu -o cuda_test.bin
 test_system_timer_event.bin: test_system_timer_event.cpp
 	nvcc -std=c++11 -I$(SCFD_INCLUDE) test_system_timer_event.cpp -o test_system_timer_event.bin
+test_log_basic_cformatted_wrap.bin: test_log_basic_cformatted_wrap.cpp
+	g++ -std=c++11 -I$(SCFD_INCLUDE) test_log_basic_cformatted_wrap.cpp -o test_log_basic_cformatted_wrap.bin
