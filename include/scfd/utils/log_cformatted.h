@@ -36,6 +36,7 @@ template<class LogBasic>
 class log_cformatted : public LogBasic
 {
 public:
+    using LogBasic::LogBasic;
     using typename LogBasic::log_msg_type;
     using LogBasic::msg;
     using LogBasic::set_verbosity;
