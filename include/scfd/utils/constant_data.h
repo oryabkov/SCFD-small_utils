@@ -40,6 +40,9 @@
 //simply looking for __NVCC__ define
 
 
+template<typename T> struct utils_argument_type;
+template<typename T, typename U> struct utils_argument_type<T(U)> { typedef U type; };
+
 #define __CONSTANT_BUFFER__CTASTR2(pre,post) pre ## post
 #define __CONSTANT_BUFFER__CTASTR(pre,post) __CONSTANT_BUFFER__CTASTR2(pre,post)
 
@@ -47,27 +50,34 @@
 #ifdef __NVCC__
 
 #ifdef __CUDA_ARCH__
-#define DEFINE_CONSTANT_BUFFER_ACCESS_FUNC(buf_type, buf_name)                          \
-    __device__ __host__ buf_type    &buf_name()                                         \
-    {                                                                                   \
-        return  reinterpret_cast<buf_type&>(__CONSTANT_BUFFER__CTASTR(__,buf_name));    \
+#define DEFINE_CONSTANT_BUFFER_ACCESS_FUNC(buf_type, buf_name)                                                        \
+    __device__ __host__ utils_argument_type<void(buf_type)>::type    &buf_name()                                      \
+    {                                                                                                                 \
+        return  reinterpret_cast<utils_argument_type<void(buf_type)>::type&>(__CONSTANT_BUFFER__CTASTR(__,buf_name)); \
     }
 #else
-#define DEFINE_CONSTANT_BUFFER_ACCESS_FUNC(buf_type, buf_name)                          \
-    __device__ __host__ static buf_type    &buf_name()                                  \
-    {                                                                                   \
-        return  reinterpret_cast<buf_type&>(__CONSTANT_BUFFER__CTASTR(__h_,buf_name));  \
+#define DEFINE_CONSTANT_BUFFER_ACCESS_FUNC(buf_type, buf_name)                                                           \
+    __device__ __host__ static utils_argument_type<void(buf_type)>::type    &buf_name()                                  \
+    {                                                                                                                    \
+        return  reinterpret_cast<utils_argument_type<void(buf_type)>::type&>(__CONSTANT_BUFFER__CTASTR(__h_,buf_name));  \
     }
 #endif
 
 #define DEFINE_CONSTANT_BUFFER(buf_type, buf_name)                                                  \
     __constant__ struct __CONSTANT_BUFFER__CTASTR(__t_buf,buf_name)                                 \
     {                                                                                               \
-        long long buf[sizeof(buf_type)/sizeof(long long)+1];                                        \
+        long long buf[sizeof(utils_argument_type<void(buf_type)>::type)/sizeof(long long)+1];       \
     } __CONSTANT_BUFFER__CTASTR(__,buf_name);                                                       \
-    static __CONSTANT_BUFFER__CTASTR(__t_buf,buf_name) __CONSTANT_BUFFER__CTASTR(__h_,buf_name);    \
+    __CONSTANT_BUFFER__CTASTR(__t_buf,buf_name) __CONSTANT_BUFFER__CTASTR(__h_,buf_name);    \
     DEFINE_CONSTANT_BUFFER_ACCESS_FUNC(buf_type, buf_name)
 
+#define DECLARE_CONSTANT_BUFFER(buf_type, buf_name)                                                 \
+    extern __constant__ struct __CONSTANT_BUFFER__CTASTR(__t_buf,buf_name)                          \
+    {                                                                                               \
+        long long buf[sizeof(utils_argument_type<void(buf_type)>::type)/sizeof(long long)+1];       \
+    } __CONSTANT_BUFFER__CTASTR(__,buf_name);                                                       \
+    extern __CONSTANT_BUFFER__CTASTR(__t_buf,buf_name) __CONSTANT_BUFFER__CTASTR(__h_,buf_name);    \
+    DEFINE_CONSTANT_BUFFER_ACCESS_FUNC(buf_type, buf_name)
 
 #define COPY_TO_CONSTANT_BUFFER(buf_name, data)                                                                                         \
     do {                                                                                                                                \
@@ -77,20 +87,36 @@
         memcpy( &(__CONSTANT_BUFFER__CTASTR(__h_,buf_name)), &data, sizeof(data) );                                                     \
     } while (0)
 
+#define COPY_ARRAY_TO_CONSTANT_BUFFER(buf_name, data_ptr, data_sz)                                                                      \
+    do {                                                                                                                                \
+        __CONSTANT_BUFFER__CTASTR(__t_buf,buf_name)     _data;                                                                          \
+        memcpy( &_data, data_ptr, data_sz );                                                                                          \
+        CUDA_SAFE_CALL( cudaMemcpyToSymbol(__CONSTANT_BUFFER__CTASTR(__,buf_name), &_data, sizeof(_data), 0, cudaMemcpyHostToDevice) ); \
+        memcpy( &(__CONSTANT_BUFFER__CTASTR(__h_,buf_name)), data_ptr, data_sz );                                                     \
+    } while (0)
+
 #else
 
-#define DEFINE_CONSTANT_BUFFER_ACCESS_FUNC(buf_type, buf_name)                          \
-    static buf_type    &buf_name()                                                      \
-    {                                                                                   \
-        return  reinterpret_cast<buf_type&>(__CONSTANT_BUFFER__CTASTR(__h_,buf_name));  \
+#define DEFINE_CONSTANT_BUFFER_ACCESS_FUNC(buf_type, buf_name)                                                           \
+    static utils_argument_type<void(buf_type)>::type    &buf_name()                                                      \
+    {                                                                                                                    \
+        return  reinterpret_cast<utils_argument_type<void(buf_type)>::type&>(__CONSTANT_BUFFER__CTASTR(__h_,buf_name));  \
     }
 
 #define DEFINE_CONSTANT_BUFFER(buf_type, buf_name)                                                  \
     struct __CONSTANT_BUFFER__CTASTR(__t_buf,buf_name)                                              \
     {                                                                                               \
-        long long buf[sizeof(buf_type)/sizeof(long long)+1];                                        \
+        long long buf[sizeof(utils_argument_type<void(buf_type)>::type)/sizeof(long long)+1];       \
     };                                                                                              \
-    static __CONSTANT_BUFFER__CTASTR(__t_buf,buf_name) __CONSTANT_BUFFER__CTASTR(__h_,buf_name);    \
+    __CONSTANT_BUFFER__CTASTR(__t_buf,buf_name) __CONSTANT_BUFFER__CTASTR(__h_,buf_name);           \
+    DEFINE_CONSTANT_BUFFER_ACCESS_FUNC(buf_type, buf_name)
+
+#define DECLARE_CONSTANT_BUFFER(buf_type, buf_name)                                                  \
+    struct __CONSTANT_BUFFER__CTASTR(__t_buf,buf_name)                                              \
+    {                                                                                               \
+        long long buf[sizeof(utils_argument_type<void(buf_type)>::type)/sizeof(long long)+1];       \
+    };                                                                                              \
+    extern __CONSTANT_BUFFER__CTASTR(__t_buf,buf_name) __CONSTANT_BUFFER__CTASTR(__h_,buf_name);    \
     DEFINE_CONSTANT_BUFFER_ACCESS_FUNC(buf_type, buf_name)
 
 
