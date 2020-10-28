@@ -17,6 +17,18 @@
 #ifndef __SCFD_UTILS_LOG_CFORMATTED_BASE_H__
 #define __SCFD_UTILS_LOG_CFORMATTED_BASE_H__
 
+/**
+* SCFD_UTILS_LOG_GARANTEE_THREAD_SAFE macro set manages
+* whether mutexes are used in log* classes to garantee
+* thread safety.
+* SCFD_UTILS_LOG_GARANTEE_THREAD_SAFE==1 means yes,
+* SCFD_UTILS_LOG_GARANTEE_THREAD_SAFE==0 means no
+*/ 
+
+#if SCFD_UTILS_LOG_GARANTEE_THREAD_SAFE==1
+#include <mutex>
+#endif
+
 namespace scfd
 {
 namespace utils
@@ -57,8 +69,14 @@ public:
         msg(s, log_msg_type::DEBUG, _log_lev);
     }
     
+    #if SCFD_UTILS_LOG_GARANTEE_THREAD_SAFE==1
+    #define SCFD_UTILS_LOG__FORMATTED_LOCK std::lock_guard<std::mutex> locker(mtx_);
+    #else
+    #define SCFD_UTILS_LOG__FORMATTED_LOCK
+    #endif
 
     #define LOG__FORMATTED_OUT_V__(METHOD_NAME,LOG_LEV)   \
+        SCFD_UTILS_LOG__FORMATTED_LOCK                    \
         vsprintf(buf, s.c_str(), arguments);              \
         METHOD_NAME(std::string(buf), LOG_LEV);
     void v_info_f(int _log_lev, const std::string &s, va_list arguments)
@@ -105,6 +123,7 @@ public:
 
 
     #define LOG__FORMATTED_OUT__(METHOD_NAME,LOG_LEV)   \
+        SCFD_UTILS_LOG__FORMATTED_LOCK                  \
         va_list arguments;                              \
         va_start ( arguments, s );                      \
         vsprintf(buf, s.c_str(), arguments);            \
@@ -153,7 +172,10 @@ public:
     #undef LOG__FORMATTED_OUT__
 
 private:
-    char    buf[200];
+    char        buf[200];
+    #if SCFD_UTILS_LOG_GARANTEE_THREAD_SAFE==1
+    std::mutex  mtx_;
+    #endif
 
 
 };
