@@ -19,6 +19,7 @@
 
 #include <cmath>
 #include <algorithm>
+#include <string>
 #include "device_tag.h"
 
 namespace scfd
@@ -35,7 +36,7 @@ struct scalar_traits_err
 template<class T>
 struct scalar_traits
 {
-    static const T                  zero = T(0.f);
+    static constexpr T                  zero = T(0.f);
     //inline __DEVICE_TAG__ static T  zero() { return T(0.f); }
     //inline __DEVICE_TAG__ static T  one() { return T(1.f); }
     inline __DEVICE_TAG__ static T  pi() { return T(3.1415926535897932384626433832795f); }
@@ -53,7 +54,7 @@ struct scalar_traits
 template<>
 struct scalar_traits<float>
 {
-    static const float                  zero = 0.f;
+    static constexpr float                  zero = 0.f;
     //inline __DEVICE_TAG__ static float  zero() { return 0.f; }
     //inline __DEVICE_TAG__ static float  one() { return 1.f; }
     inline __DEVICE_TAG__ static float  pi() { return 3.1415926535897932384626433832795f; }
@@ -99,7 +100,7 @@ struct scalar_traits<float>
 template<>
 struct scalar_traits<double>
 {
-    static const double                  zero = 0.;
+    static constexpr double                  zero = 0.;
     //inline __DEVICE_TAG__ static double  zero() { return 0.; }
     //inline __DEVICE_TAG__ static double  one() { return 1.; }
     inline __DEVICE_TAG__ static double  pi() { return 3.1415926535897932384626433832795; }
