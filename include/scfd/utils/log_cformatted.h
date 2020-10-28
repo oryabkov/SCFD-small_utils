@@ -23,13 +23,7 @@ namespace utils
 {
 
 /**
-* LogBasic concept:
-* class enum log_msg_type that contains at least INFO,INFO_ALL,WARNING,ERROR
-* void msg(const std::string &s, log_msg_type mt = log_msg_type::INFO, int _log_lev = 1);
-* lesser log level corresponds to more important messages
-* void set_verbosity(int _log_lev = 1);
-* set_verbosity sets maximum level of messages to log
-* NOTE log_lev doesnot affects errors
+* LogBasic concept see in LOG_CONCEPTS.txt
 */ 
 
 template<class LogBasic>

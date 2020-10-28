@@ -28,7 +28,7 @@ namespace scfd
 namespace utils
 {
 
-/// see log_cformatted for LogBasic concept
+/// LogBasic concept see in LOG_CONCEPTS.txt
 template<class LogBasic>
 class log_basic_cformatted_wrap : public log_cformatted<log_basic_wrap<LogBasic>>
 {
