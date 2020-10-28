@@ -20,8 +20,7 @@
 #include <string>
 #include <exception>
 #include <stdexcept>
-#include <cstdarg>
-#include <cstdio>
+#include <iostream>
 #include "log_msg_type.h"
 
 namespace scfd
@@ -42,11 +41,11 @@ public:
         if ((mt != log_msg_type::ERROR)&&(_log_lev > log_lev)) return;
         //TODO
         if ((mt == log_msg_type::INFO)||(mt == log_msg_type::INFO_ALL))
-            printf("INFO:    %s\n", s.c_str());
+            std::cout << "INFO:    " << s << std::endl;
         else if (mt == log_msg_type::WARNING)
-            printf("WARNING: %s\n", s.c_str());
+            std::cout << "WARNING: " << s << std::endl;
         else if (mt == log_msg_type::ERROR)
-            printf("ERROR:   %s\n", s.c_str());
+            std::cout << "ERROR:   " << s << std::endl;
         else 
             throw std::logic_error("log_std_basic::log: wrong t_msg_type argument");
     }
