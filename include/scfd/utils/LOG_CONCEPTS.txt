@@ -4,7 +4,7 @@
 
 Nested types:
 
-class enum log_msg_type that contains at least INFO,INFO_ALL,WARNING,ERROR
+class enum log_msg_type that contains at least INFO,INFO_ALL,WARNING,ERROR,DEBUG
 
 Methods:
 

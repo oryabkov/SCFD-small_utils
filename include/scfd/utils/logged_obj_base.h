@@ -62,6 +62,10 @@ public:
     {
         if (log_ != NULL) log_->error(log_msg_prefix_ + s, obj_log_lev_ + log_lev_);
     }
+    void debug(const std::string &s, int log_lev_ = 1)const
+    {
+        if (log_ != NULL) log_->debug(log_msg_prefix_ + s, obj_log_lev_ + log_lev_);
+    }
 
     #define LOGGED_OBJ_BASE__FORMATTED_OUT__(METHOD_NAME, LOG_LEV)              \
         if (log_ == NULL) return;                                               \
@@ -85,6 +89,10 @@ public:
     {
         LOGGED_OBJ_BASE__FORMATTED_OUT__(v_error_f, obj_log_lev_ + log_lev_)
     }
+    void debug_f(int log_lev_, const std::string &s, ...)const
+    {
+        LOGGED_OBJ_BASE__FORMATTED_OUT__(v_debug_f, obj_log_lev_ + log_lev_)
+    }
     void info_f(const std::string &s, ...)const
     {
         LOGGED_OBJ_BASE__FORMATTED_OUT__(v_info_f, obj_log_lev_)
@@ -100,6 +108,10 @@ public:
     void error_f(const std::string &s, ...)const
     {
         LOGGED_OBJ_BASE__FORMATTED_OUT__(v_error_f, obj_log_lev_)
+    }
+    void debug_f(const std::string &s, ...)const
+    {
+        LOGGED_OBJ_BASE__FORMATTED_OUT__(v_debug_f, obj_log_lev_)
     }
     #undef LOGGED_OBJ_BASE__FORMATTED_OUT__
 };

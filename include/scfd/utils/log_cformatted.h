@@ -51,7 +51,11 @@ public:
     void error(const std::string &s, int _log_lev = 1)
     {
         msg(s, log_msg_type::ERROR, _log_lev);
-    }   
+    }
+    void debug(const std::string &s, int _log_lev = 1)
+    {
+        msg(s, log_msg_type::DEBUG, _log_lev);
+    }
     
 
     #define LOG__FORMATTED_OUT_V__(METHOD_NAME,LOG_LEV)   \
@@ -73,6 +77,10 @@ public:
     {
         LOG__FORMATTED_OUT_V__(error, _log_lev)
     }
+    void v_debug_f(int _log_lev, const std::string &s, va_list arguments)
+    {
+        LOG__FORMATTED_OUT_V__(debug, _log_lev)
+    }
     void v_info_f(const std::string &s, va_list arguments)
     {
         LOG__FORMATTED_OUT_V__(info, 1)
@@ -88,6 +96,10 @@ public:
     void v_error_f(const std::string &s, va_list arguments)
     {
         LOG__FORMATTED_OUT_V__(error, 1)
+    }
+    void v_debug_f(const std::string &s, va_list arguments)
+    {
+        LOG__FORMATTED_OUT_V__(debug, 1)
     }
     #undef LOG__FORMATTED_OUT_V__ 
 
@@ -114,6 +126,10 @@ public:
     {
         LOG__FORMATTED_OUT__(error, _log_lev)
     }
+    void debug_f(int _log_lev, const std::string &s, ...)
+    {
+        LOG__FORMATTED_OUT__(debug, _log_lev)
+    }
     void info_f(const std::string &s, ...)
     {
         LOG__FORMATTED_OUT__(info, 1)
@@ -129,6 +145,10 @@ public:
     void error_f(const std::string &s, ...)
     {
         LOG__FORMATTED_OUT__(error, 1)
+    }
+    void debug_f(const std::string &s, ...)
+    {
+        LOG__FORMATTED_OUT__(debug, 1)
     }
     #undef LOG__FORMATTED_OUT__
 

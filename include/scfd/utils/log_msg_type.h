@@ -29,7 +29,8 @@ enum class log_msg_type
     /// that must be said distintly by each process (like, 'i'm 1st; i'm second etc')
     INFO_ALL, 
     WARNING, 
-    ERROR 
+    ERROR,
+    DEBUG
 };
 
 }
