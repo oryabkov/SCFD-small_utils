@@ -22,40 +22,13 @@
 #include <stdexcept>
 #include <cstdarg>
 #include <cstdio>
-#include "log_msg_type.h"
+#include "log_std_basic.h"
 #include "log_cformatted.h"
 
 namespace scfd
 {
 namespace utils
 {
-
-class log_std_basic
-{
-public:
-    using log_msg_type = utils::log_msg_type;
-
-public:
-    log_std_basic() : log_lev(1) {}
-
-    void msg(const std::string &s, log_msg_type mt = log_msg_type::INFO, int _log_lev = 1)
-    {
-        if ((mt != log_msg_type::ERROR)&&(_log_lev > log_lev)) return;
-        //TODO
-        if ((mt == log_msg_type::INFO)||(mt == log_msg_type::INFO_ALL))
-            printf("INFO:    %s\n", s.c_str());
-        else if (mt == log_msg_type::WARNING)
-            printf("WARNING: %s\n", s.c_str());
-        else if (mt == log_msg_type::ERROR)
-            printf("ERROR:   %s\n", s.c_str());
-        else 
-            throw std::logic_error("log_std_basic::log: wrong t_msg_type argument");
-    }
-    void set_verbosity(int _log_lev = 1) { log_lev = _log_lev; }
-
-private:
-    int     log_lev;
-};
 
 using log_std = log_cformatted<log_std_basic>;
 

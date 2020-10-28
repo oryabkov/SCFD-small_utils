@@ -23,7 +23,6 @@
 #include <cstdarg>
 #include <cstdio>
 #include "log_msg_type.h"
-#include "log_cformatted.h"
 
 namespace scfd
 {
