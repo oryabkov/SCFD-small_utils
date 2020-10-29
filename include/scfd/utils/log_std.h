@@ -17,11 +17,6 @@
 #ifndef __SCFD_UTILS_LOG_STD_H__
 #define __SCFD_UTILS_LOG_STD_H__
 
-#include <string>
-#include <exception>
-#include <stdexcept>
-#include <cstdarg>
-#include <cstdio>
 #include "log_std_basic.h"
 #include "log_cformatted.h"
 

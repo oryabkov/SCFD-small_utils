@@ -18,6 +18,7 @@
 #define __SCFD_UTILS_LOG_BASIC_CFORMATTED_WRAP_H__
 
 #include "log_basic_wrap.h"
+#include "log_cformatted.h"
 
 /**
 * TODO

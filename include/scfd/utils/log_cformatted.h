@@ -17,6 +17,9 @@
 #ifndef __SCFD_UTILS_LOG_CFORMATTED_BASE_H__
 #define __SCFD_UTILS_LOG_CFORMATTED_BASE_H__
 
+#include <cstdarg>
+#include <cstdio>
+
 /**
 * SCFD_UTILS_LOG_GARANTEE_THREAD_SAFE macro set manages
 * whether mutexes are used in log* classes to garantee

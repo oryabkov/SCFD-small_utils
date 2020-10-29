@@ -1,5 +1,5 @@
 
-#include <scfd/utils/log_std.h>
+#include <scfd/utils/log_std_basic.h>
 #include <scfd/utils/log_basic_cformatted_wrap.h>
 
 using namespace scfd::utils;
