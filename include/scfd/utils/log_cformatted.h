@@ -46,7 +46,9 @@ class log_cformatted : public LogBasic
 {
 public:
     using LogBasic::LogBasic;
-    using typename LogBasic::log_msg_type;
+    //using typename LogBasic::log_msg_type;
+    /// NOTE for some reason above using version didnot work with nvcc (8.0) however worked with g++
+    using log_msg_type = typename LogBasic::log_msg_type;
     using LogBasic::msg;
     using LogBasic::set_verbosity;
 
