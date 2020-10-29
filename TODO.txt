@@ -12,3 +12,6 @@
    Not sure if it is a problem, because I usually don't move or copy
    timers. But perhaps there will arise reason to do it at some point.
 8) convert tests to gtest version and add cmake
+9) Why we are so afraid of shared_ptr<>? In some cases it won't hurt at
+   all. For example, it's convinient to store pointer in log_basic_wrap
+   as shared and logged_obj_base can store pointer to Log as shared.
