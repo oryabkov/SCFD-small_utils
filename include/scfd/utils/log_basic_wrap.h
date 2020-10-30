@@ -54,11 +54,11 @@ public:
 
     void msg(const std::string &s, log_msg_type mt = log_msg_type::INFO, int log_lev = 1)
     {
-        log_basic_->msg(s, mt, log_lev);
+        if (log_basic_ != NULL) log_basic_->msg(s, mt, log_lev);
     }
     void set_verbosity(int log_lev = 1) 
     { 
-        log_basic_->set_verbosity(log_lev);
+        if (log_basic_ != NULL) log_basic_->set_verbosity(log_lev);
     }
 
 private:

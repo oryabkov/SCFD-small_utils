@@ -73,6 +73,26 @@ public:
     {
         msg(s, log_msg_type::DEBUG, _log_lev);
     }
+    void info(int _log_lev, const std::string &s)
+    {
+        msg(s, log_msg_type::INFO, _log_lev);
+    }
+    void info_all(int _log_lev, const std::string &s)
+    {
+        msg(s, log_msg_type::INFO_ALL, _log_lev);
+    }
+    void warning(int _log_lev, const std::string &s)
+    {
+        msg(s, log_msg_type::WARNING, _log_lev);
+    }
+    void error(int _log_lev, const std::string &s)
+    {
+        msg(s, log_msg_type::ERROR, _log_lev);
+    }
+    void debug(int _log_lev, const std::string &s)
+    {
+        msg(s, log_msg_type::DEBUG, _log_lev);
+    }
     
     #if SCFD_UTILS_LOG_GARANTEE_THREAD_SAFE==1
     #define SCFD_UTILS_LOG__FORMATTED_LOCK std::lock_guard<std::mutex> locker(mtx_);
