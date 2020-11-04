@@ -36,6 +36,7 @@ Methods:
 void msg(const std::string &s, log_msg_type mt = log_msg_type::INFO, int _log_lev = 1);
 lesser log level corresponds to more important messages
 
+TODO if set_verbosity is really needed in CONCEPT?? Logging algorithm must not use it, I suppose
 void set_verbosity(int _log_lev = 1);
 set_verbosity sets maximum level of messages to log
 NOTE log_lev doesnot affects errors
