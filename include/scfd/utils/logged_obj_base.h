@@ -20,6 +20,9 @@
 #include <cstdarg>
 #include <string>
 
+/// logged_obj_base itself supposed to satisfy Log (at least LogCFormatted) concept
+// TODO add neccessary methods (msg, v_*-output methods)
+
 namespace scfd
 {
 namespace utils
